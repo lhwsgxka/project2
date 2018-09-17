@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.dao.LetterMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.pojo.Letter" >
+    <id column="le_id" property="leId" jdbcType="INTEGER" />
+    <result column="le_us_addresserid" property="leUsAddresserid" jdbcType="INTEGER" />
+    <result column="le_us_recipientsid" property="leUsRecipientsid" jdbcType="INTEGER" />
+    <result column="le_content" property="leContent" jdbcType="VARCHAR" />
+    <result column="le_create_time" property="leCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    le_id, le_us_addresserid, le_us_recipientsid, le_content, le_create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from letter
+    where le_id = #{leId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from letter
+    where le_id = #{leId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.pojo.Letter" >
+    insert into letter (le_id, le_us_addresserid, le_us_recipientsid, 
+      le_content, le_create_time)
+    values (#{leId,jdbcType=INTEGER}, #{leUsAddresserid,jdbcType=INTEGER}, #{leUsRecipientsid,jdbcType=INTEGER}, 
+      #{leContent,jdbcType=VARCHAR}, #{leCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.pojo.Letter" >
+    insert into letter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leId != null" >
+        le_id,
+      </if>
+      <if test="leUsAddresserid != null" >
+        le_us_addresserid,
+      </if>
+      <if test="leUsRecipientsid != null" >
+        le_us_recipientsid,
+      </if>
+      <if test="leContent != null" >
+        le_content,
+      </if>
+      <if test="leCreateTime != null" >
+        le_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leId != null" >
+        #{leId,jdbcType=INTEGER},
+      </if>
+      <if test="leUsAddresserid != null" >
+        #{leUsAddresserid,jdbcType=INTEGER},
+      </if>
+      <if test="leUsRecipientsid != null" >
+        #{leUsRecipientsid,jdbcType=INTEGER},
+      </if>
+      <if test="leContent != null" >
+        #{leContent,jdbcType=VARCHAR},
+      </if>
+      <if test="leCreateTime != null" >
+        #{leCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.pojo.Letter" >
+    update letter
+    <set >
+      <if test="leUsAddresserid != null" >
+        le_us_addresserid = #{leUsAddresserid,jdbcType=INTEGER},
+      </if>
+      <if test="leUsRecipientsid != null" >
+        le_us_recipientsid = #{leUsRecipientsid,jdbcType=INTEGER},
+      </if>
+      <if test="leContent != null" >
+        le_content = #{leContent,jdbcType=VARCHAR},
+      </if>
+      <if test="leCreateTime != null" >
+        le_create_time = #{leCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where le_id = #{leId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.pojo.Letter" >
+    update letter
+    set le_us_addresserid = #{leUsAddresserid,jdbcType=INTEGER},
+      le_us_recipientsid = #{leUsRecipientsid,jdbcType=INTEGER},
+      le_content = #{leContent,jdbcType=VARCHAR},
+      le_create_time = #{leCreateTime,jdbcType=TIMESTAMP}
+    where le_id = #{leId,jdbcType=INTEGER}
+  </update>
+</mapper>

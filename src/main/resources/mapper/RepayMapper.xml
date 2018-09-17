@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.dao.RepayMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.pojo.Repay" >
+    <id column="ry_id" property="ryId" jdbcType="INTEGER" />
+    <result column="ry_us_id" property="ryUsId" jdbcType="INTEGER" />
+    <result column="ry_type" property="ryType" jdbcType="INTEGER" />
+    <result column="ry_paymoney" property="ryPaymoney" jdbcType="DOUBLE" />
+    <result column="ry_rule" property="ryRule" jdbcType="VARCHAR" />
+    <result column="ry_content" property="ryContent" jdbcType="VARCHAR" />
+    <result column="ry_number" property="ryNumber" jdbcType="INTEGER" />
+    <result column="ry_time" property="ryTime" jdbcType="DATE" />
+    <result column="ry_ps_id" property="ryPsId" jdbcType="INTEGER" />
+    <result column="ry_code" property="ryCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zhiyou100.pojo.Repay" extends="BaseResultMap" >
+    <result column="ry_pic_url" property="ryPicUrl" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ry_id, ry_us_id, ry_type, ry_paymoney, ry_rule, ry_content, ry_number, ry_time, ry_ps_id, 
+    ry_code
+  </sql>
+  <sql id="Blob_Column_List" >
+    ry_pic_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from repay
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from repay
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.pojo.Repay" >
+    insert into repay (ry_id, ry_us_id, ry_type, 
+      ry_paymoney, ry_rule, ry_content, 
+      ry_number, ry_time, ry_ps_id, 
+      ry_code, ry_pic_url)
+    values (#{ryId,jdbcType=INTEGER}, #{ryUsId,jdbcType=INTEGER}, #{ryType,jdbcType=INTEGER}, 
+      #{ryPaymoney,jdbcType=DOUBLE}, #{ryRule,jdbcType=VARCHAR}, #{ryContent,jdbcType=VARCHAR}, 
+      #{ryNumber,jdbcType=INTEGER}, #{ryTime,jdbcType=DATE}, #{ryPsId,jdbcType=INTEGER}, 
+      #{ryCode,jdbcType=VARCHAR}, #{ryPicUrl,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.pojo.Repay" >
+    insert into repay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ryId != null" >
+        ry_id,
+      </if>
+      <if test="ryUsId != null" >
+        ry_us_id,
+      </if>
+      <if test="ryType != null" >
+        ry_type,
+      </if>
+      <if test="ryPaymoney != null" >
+        ry_paymoney,
+      </if>
+      <if test="ryRule != null" >
+        ry_rule,
+      </if>
+      <if test="ryContent != null" >
+        ry_content,
+      </if>
+      <if test="ryNumber != null" >
+        ry_number,
+      </if>
+      <if test="ryTime != null" >
+        ry_time,
+      </if>
+      <if test="ryPsId != null" >
+        ry_ps_id,
+      </if>
+      <if test="ryCode != null" >
+        ry_code,
+      </if>
+      <if test="ryPicUrl != null" >
+        ry_pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ryId != null" >
+        #{ryId,jdbcType=INTEGER},
+      </if>
+      <if test="ryUsId != null" >
+        #{ryUsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryType != null" >
+        #{ryType,jdbcType=INTEGER},
+      </if>
+      <if test="ryPaymoney != null" >
+        #{ryPaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ryRule != null" >
+        #{ryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="ryContent != null" >
+        #{ryContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ryNumber != null" >
+        #{ryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ryTime != null" >
+        #{ryTime,jdbcType=DATE},
+      </if>
+      <if test="ryPsId != null" >
+        #{ryPsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryCode != null" >
+        #{ryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ryPicUrl != null" >
+        #{ryPicUrl,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.pojo.Repay" >
+    update repay
+    <set >
+      <if test="ryUsId != null" >
+        ry_us_id = #{ryUsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryType != null" >
+        ry_type = #{ryType,jdbcType=INTEGER},
+      </if>
+      <if test="ryPaymoney != null" >
+        ry_paymoney = #{ryPaymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ryRule != null" >
+        ry_rule = #{ryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="ryContent != null" >
+        ry_content = #{ryContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ryNumber != null" >
+        ry_number = #{ryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ryTime != null" >
+        ry_time = #{ryTime,jdbcType=DATE},
+      </if>
+      <if test="ryPsId != null" >
+        ry_ps_id = #{ryPsId,jdbcType=INTEGER},
+      </if>
+      <if test="ryCode != null" >
+        ry_code = #{ryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ryPicUrl != null" >
+        ry_pic_url = #{ryPicUrl,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhiyou100.pojo.Repay" >
+    update repay
+    set ry_us_id = #{ryUsId,jdbcType=INTEGER},
+      ry_type = #{ryType,jdbcType=INTEGER},
+      ry_paymoney = #{ryPaymoney,jdbcType=DOUBLE},
+      ry_rule = #{ryRule,jdbcType=VARCHAR},
+      ry_content = #{ryContent,jdbcType=VARCHAR},
+      ry_number = #{ryNumber,jdbcType=INTEGER},
+      ry_time = #{ryTime,jdbcType=DATE},
+      ry_ps_id = #{ryPsId,jdbcType=INTEGER},
+      ry_code = #{ryCode,jdbcType=VARCHAR},
+      ry_pic_url = #{ryPicUrl,jdbcType=VARBINARY}
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.pojo.Repay" >
+    update repay
+    set ry_us_id = #{ryUsId,jdbcType=INTEGER},
+      ry_type = #{ryType,jdbcType=INTEGER},
+      ry_paymoney = #{ryPaymoney,jdbcType=DOUBLE},
+      ry_rule = #{ryRule,jdbcType=VARCHAR},
+      ry_content = #{ryContent,jdbcType=VARCHAR},
+      ry_number = #{ryNumber,jdbcType=INTEGER},
+      ry_time = #{ryTime,jdbcType=DATE},
+      ry_ps_id = #{ryPsId,jdbcType=INTEGER},
+      ry_code = #{ryCode,jdbcType=VARCHAR}
+    where ry_id = #{ryId,jdbcType=INTEGER}
+  </update>
+</mapper>

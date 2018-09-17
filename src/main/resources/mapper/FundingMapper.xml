@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.dao.FundingMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.pojo.Funding" >
+    <id column="fd_id" property="fdId" jdbcType="INTEGER" />
+    <result column="fd_us_id" property="fdUsId" jdbcType="VARCHAR" />
+    <result column="fd_ps_id" property="fdPsId" jdbcType="VARCHAR" />
+    <result column="fd_money" property="fdMoney" jdbcType="DECIMAL" />
+    <result column="fd_time" property="fdTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fd_id, fd_us_id, fd_ps_id, fd_money, fd_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from funding
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from funding
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.pojo.Funding" >
+    insert into funding (fd_id, fd_us_id, fd_ps_id, 
+      fd_money, fd_time)
+    values (#{fdId,jdbcType=INTEGER}, #{fdUsId,jdbcType=VARCHAR}, #{fdPsId,jdbcType=VARCHAR}, 
+      #{fdMoney,jdbcType=DECIMAL}, #{fdTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.pojo.Funding" >
+    insert into funding
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fdId != null" >
+        fd_id,
+      </if>
+      <if test="fdUsId != null" >
+        fd_us_id,
+      </if>
+      <if test="fdPsId != null" >
+        fd_ps_id,
+      </if>
+      <if test="fdMoney != null" >
+        fd_money,
+      </if>
+      <if test="fdTime != null" >
+        fd_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fdId != null" >
+        #{fdId,jdbcType=INTEGER},
+      </if>
+      <if test="fdUsId != null" >
+        #{fdUsId,jdbcType=VARCHAR},
+      </if>
+      <if test="fdPsId != null" >
+        #{fdPsId,jdbcType=VARCHAR},
+      </if>
+      <if test="fdMoney != null" >
+        #{fdMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fdTime != null" >
+        #{fdTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.pojo.Funding" >
+    update funding
+    <set >
+      <if test="fdUsId != null" >
+        fd_us_id = #{fdUsId,jdbcType=VARCHAR},
+      </if>
+      <if test="fdPsId != null" >
+        fd_ps_id = #{fdPsId,jdbcType=VARCHAR},
+      </if>
+      <if test="fdMoney != null" >
+        fd_money = #{fdMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fdTime != null" >
+        fd_time = #{fdTime,jdbcType=DATE},
+      </if>
+    </set>
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.pojo.Funding" >
+    update funding
+    set fd_us_id = #{fdUsId,jdbcType=VARCHAR},
+      fd_ps_id = #{fdPsId,jdbcType=VARCHAR},
+      fd_money = #{fdMoney,jdbcType=DECIMAL},
+      fd_time = #{fdTime,jdbcType=DATE}
+    where fd_id = #{fdId,jdbcType=INTEGER}
+  </update>
+</mapper>

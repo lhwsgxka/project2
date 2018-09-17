@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.dao.LogsMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.pojo.Logs" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="log_us_id" property="logUsId" jdbcType="INTEGER" />
+    <result column="log_content" property="logContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, log_us_id, log_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from logs
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from logs
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.pojo.Logs" >
+    insert into logs (log_id, log_us_id, log_content
+      )
+    values (#{logId,jdbcType=INTEGER}, #{logUsId,jdbcType=INTEGER}, #{logContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.pojo.Logs" >
+    insert into logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="logUsId != null" >
+        log_us_id,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logUsId != null" >
+        #{logUsId,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.pojo.Logs" >
+    update logs
+    <set >
+      <if test="logUsId != null" >
+        log_us_id = #{logUsId,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        log_content = #{logContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.pojo.Logs" >
+    update logs
+    set log_us_id = #{logUsId,jdbcType=INTEGER},
+      log_content = #{logContent,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

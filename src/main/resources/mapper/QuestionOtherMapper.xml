@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.dao.QuestionOtherMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.pojo.QuestionOther" >
+    <id column="questionotherid" property="questionotherid" jdbcType="INTEGER" />
+    <result column="questionid" property="questionid" jdbcType="INTEGER" />
+    <result column="questionothername" property="questionothername" jdbcType="VARCHAR" />
+    <result column="questiondate" property="questiondate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zhiyou100.pojo.QuestionOther" extends="BaseResultMap" >
+    <result column="questionanswer" property="questionanswer" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    questionotherid, questionid, questionothername, questiondate
+  </sql>
+  <sql id="Blob_Column_List" >
+    questionanswer
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from question_other
+    where questionotherid = #{questionotherid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from question_other
+    where questionotherid = #{questionotherid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.pojo.QuestionOther" >
+    insert into question_other (questionotherid, questionid, questionothername, 
+      questiondate, questionanswer)
+    values (#{questionotherid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, #{questionothername,jdbcType=VARCHAR}, 
+      #{questiondate,jdbcType=TIMESTAMP}, #{questionanswer,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.pojo.QuestionOther" >
+    insert into question_other
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionotherid != null" >
+        questionotherid,
+      </if>
+      <if test="questionid != null" >
+        questionid,
+      </if>
+      <if test="questionothername != null" >
+        questionothername,
+      </if>
+      <if test="questiondate != null" >
+        questiondate,
+      </if>
+      <if test="questionanswer != null" >
+        questionanswer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionotherid != null" >
+        #{questionotherid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="questionothername != null" >
+        #{questionothername,jdbcType=VARCHAR},
+      </if>
+      <if test="questiondate != null" >
+        #{questiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionanswer != null" >
+        #{questionanswer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.pojo.QuestionOther" >
+    update question_other
+    <set >
+      <if test="questionid != null" >
+        questionid = #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="questionothername != null" >
+        questionothername = #{questionothername,jdbcType=VARCHAR},
+      </if>
+      <if test="questiondate != null" >
+        questiondate = #{questiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionanswer != null" >
+        questionanswer = #{questionanswer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where questionotherid = #{questionotherid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhiyou100.pojo.QuestionOther" >
+    update question_other
+    set questionid = #{questionid,jdbcType=INTEGER},
+      questionothername = #{questionothername,jdbcType=VARCHAR},
+      questiondate = #{questiondate,jdbcType=TIMESTAMP},
+      questionanswer = #{questionanswer,jdbcType=LONGVARCHAR}
+    where questionotherid = #{questionotherid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.pojo.QuestionOther" >
+    update question_other
+    set questionid = #{questionid,jdbcType=INTEGER},
+      questionothername = #{questionothername,jdbcType=VARCHAR},
+      questiondate = #{questiondate,jdbcType=TIMESTAMP}
+    where questionotherid = #{questionotherid,jdbcType=INTEGER}
+  </update>
+</mapper>

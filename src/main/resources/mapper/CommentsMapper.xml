@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.dao.CommentsMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.pojo.Comments" >
+    <id column="cm_id" property="cmId" jdbcType="INTEGER" />
+    <result column="cm_us_id" property="cmUsId" jdbcType="INTEGER" />
+    <result column="cm_ps_id" property="cmPsId" jdbcType="INTEGER" />
+    <result column="cm_time" property="cmTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zhiyou100.pojo.Comments" extends="BaseResultMap" >
+    <result column="cm_content" property="cmContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cm_id, cm_us_id, cm_ps_id, cm_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    cm_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comments
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comments
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.pojo.Comments" >
+    insert into comments (cm_id, cm_us_id, cm_ps_id, 
+      cm_time, cm_content)
+    values (#{cmId,jdbcType=INTEGER}, #{cmUsId,jdbcType=INTEGER}, #{cmPsId,jdbcType=INTEGER}, 
+      #{cmTime,jdbcType=TIMESTAMP}, #{cmContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.pojo.Comments" >
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmId != null" >
+        cm_id,
+      </if>
+      <if test="cmUsId != null" >
+        cm_us_id,
+      </if>
+      <if test="cmPsId != null" >
+        cm_ps_id,
+      </if>
+      <if test="cmTime != null" >
+        cm_time,
+      </if>
+      <if test="cmContent != null" >
+        cm_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmId != null" >
+        #{cmId,jdbcType=INTEGER},
+      </if>
+      <if test="cmUsId != null" >
+        #{cmUsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmPsId != null" >
+        #{cmPsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmTime != null" >
+        #{cmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmContent != null" >
+        #{cmContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.pojo.Comments" >
+    update comments
+    <set >
+      <if test="cmUsId != null" >
+        cm_us_id = #{cmUsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmPsId != null" >
+        cm_ps_id = #{cmPsId,jdbcType=INTEGER},
+      </if>
+      <if test="cmTime != null" >
+        cm_time = #{cmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmContent != null" >
+        cm_content = #{cmContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhiyou100.pojo.Comments" >
+    update comments
+    set cm_us_id = #{cmUsId,jdbcType=INTEGER},
+      cm_ps_id = #{cmPsId,jdbcType=INTEGER},
+      cm_time = #{cmTime,jdbcType=TIMESTAMP},
+      cm_content = #{cmContent,jdbcType=LONGVARCHAR}
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.pojo.Comments" >
+    update comments
+    set cm_us_id = #{cmUsId,jdbcType=INTEGER},
+      cm_ps_id = #{cmPsId,jdbcType=INTEGER},
+      cm_time = #{cmTime,jdbcType=TIMESTAMP}
+    where cm_id = #{cmId,jdbcType=INTEGER}
+  </update>
+</mapper>
