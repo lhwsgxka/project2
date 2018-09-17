@@ -3,6 +3,7 @@ package com.zhiyou100.controller;
 import com.zhiyou100.pojo.User;
 import com.zhiyou100.responsemessage.Response;
 import com.zhiyou100.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,9 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/login")
+@Slf4j
 public class Login {
-    private final static Logger log = LoggerFactory.getLogger(Register.class);
+    //private final static Logger log = LoggerFactory.getLogger(Register.class);
     @Autowired
     UserService userService;
 

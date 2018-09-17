@@ -5,6 +5,7 @@ import com.zhiyou100.pojo.User;
 import com.zhiyou100.responsemessage.Response;
 import com.zhiyou100.service.ProjectsService;
 import com.zhiyou100.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/id")
+@Slf4j
 public class Identity {
     @Autowired
     UserService userService;
