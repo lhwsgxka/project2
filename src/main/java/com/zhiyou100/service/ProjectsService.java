@@ -1,6 +1,7 @@
 package com.zhiyou100.service;
 
 import com.zhiyou100.dao.ProjectsMapper;
+import com.zhiyou100.pojo.Comments;
 import com.zhiyou100.pojo.Projects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,13 @@ public class ProjectsService {
     public Projects selectByPrimaryKey(Integer usId) {
         return projectsMapper.selectByPrimaryKey(usId);
     }
-    public List<Projects> selectByPage(Integer page){
-        return projectsMapper.selectByPage(page);
+//分页查询评论
+    public List<Comments> selectCommentByPage(){
+        return projectsMapper.selectCommentByPage();
+    }
+//分页查询项目
+    public List<Projects> selectByPage(){
+        return projectsMapper.selectByPage();
     }
 
     public int updateByPrimaryKeySelective(Projects record) {

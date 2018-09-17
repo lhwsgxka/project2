@@ -17,10 +17,9 @@
 
     <!-- <utils:properties id="db" location="classpath:db.properties"></utils:properties>-->
     <!--扫描位于base-package下面带有注解的类-->
-    <context:component-scan base-package="com">
+    <context:component-scan base-package="com.zhiyou100">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"></context:exclude-filter>
-
     </context:component-scan>
     <!--获取链接-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
@@ -35,6 +34,24 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 
         <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+    <!--分页查询-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            offsetAsPageNum=true
+                            rowBoundsWithCount=true
+                            pageSizeZero=true
+                            reasonable=false
+                            supportMethodsArguments=false
+                            returnPageInfo=none
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

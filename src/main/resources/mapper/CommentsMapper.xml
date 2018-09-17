@@ -7,23 +7,27 @@
     <result column="cm_ps_id" property="cmPsId" jdbcType="INTEGER" />
     <result column="cm_time" property="cmTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
   <resultMap id="ResultMapWithBLOBs" type="com.zhiyou100.pojo.Comments" extends="BaseResultMap" >
     <result column="cm_content" property="cmContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     cm_id, cm_us_id, cm_ps_id, cm_time
   </sql>
+
   <sql id="Blob_Column_List" >
     cm_content
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from comments
     where cm_id = #{cmId,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comments
     where cm_id = #{cmId,jdbcType=INTEGER}

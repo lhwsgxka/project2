@@ -1,6 +1,10 @@
 package com.zhiyou100.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.Date;
+@Data
 
 public class Comments {
     private Integer cmId;
@@ -52,4 +56,5 @@ public class Comments {
     public void setCmContent(String cmContent) {
         this.cmContent = cmContent == null ? null : cmContent.trim();
     }
+
 }

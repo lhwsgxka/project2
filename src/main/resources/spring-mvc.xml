@@ -2,7 +2,8 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:utils="http://www.springframework.org/schema/util"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
 
@@ -13,7 +14,7 @@
     ">
     <!--使用注解的方式开发mvc-->
     <mvc:annotation-driven/>
- <!--   <mvc:annotation-driven/>-->
+    <!--   <mvc:annotation-driven/>-->
     <!--扫描com包下面所有带注解的类-->
     <context:component-scan base-package="com.zhiyou100.controller"></context:component-scan>
     <!-- 视图解析器 -->
@@ -23,21 +24,20 @@
     </bean>
 
     <mvc:interceptors>
+        <mvc:interceptor>
+            <!--配置拦截器的拦截路径-->
+            <mvc:mapping path="/**/*.do"></mvc:mapping>
+            <!--配置拦截器非拦截路径-->
+            <mvc:exclude-mapping path="/login/login.do"></mvc:exclude-mapping>
+            <mvc:exclude-mapping path="/register/*.do"></mvc:exclude-mapping>
+            <!--配置拦截器的实现类-->
+            <bean class="com.zhiyou100.filter.Login"></bean>
+        </mvc:interceptor>
 
-    <mvc:interceptor>
-        <!--配置拦截器的拦截路径-->
-        <mvc:mapping path="/**/*.do"></mvc:mapping>
-        <!--配置拦截器非拦截路径-->
-        <mvc:exclude-mapping path="/login/login.do"></mvc:exclude-mapping>
-        <mvc:exclude-mapping path="/register/*.do"></mvc:exclude-mapping>
-        <!--配置拦截器的实现类-->
-        <bean class="com.zhiyou100.filter.Login"></bean>
-    </mvc:interceptor>
-        
-    <mvc:interceptor>
-        <mvc:mapping path="/**/*.do"></mvc:mapping>
-        <bean class="com.zhiyou100.filter.Filter"></bean>
-    </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.do"></mvc:mapping>
+            <bean class="com.zhiyou100.filter.Filter"></bean>
+        </mvc:interceptor>
 
     </mvc:interceptors>
 </beans>

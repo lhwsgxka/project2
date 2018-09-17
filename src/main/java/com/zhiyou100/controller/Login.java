@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,24 +34,24 @@ public class Login {
      * @param req
      * @param usName
      * @param usPassword
-     * @param resp
      * @throws IOException
      */
     @RequestMapping("/login.do")
-    public void login(HttpServletRequest req, String usName , String usPassword, HttpServletResponse resp) throws IOException {
+    @ResponseBody
+    public String login(HttpServletRequest req, String usName, String usPassword) throws IOException {
 
-        if (StringUtils.isEmpty(usName)||StringUtils.isEmpty(usPassword)){
-             Response.responseError(resp,"账号或密码为空");
-             return;
+        if (StringUtils.isEmpty(usName) || StringUtils.isEmpty(usPassword)) {
+            return Response.responseError("账号或密码为空");
         }
-        List<User> users = userService.selectBySelective(usName, usPassword);
-        if(users==null){
-           Response.responseError(resp,"账号密码不匹配");
-        }
-        else {
+        User users = userService.selectBySelective(usName, usPassword);
+        System.out.println(users);
+        if (users == null) {
+            return Response.responseError("账号密码不匹配");
+
+        } else {
             HttpSession session = req.getSession();
-            session.setAttribute("login","succeed");
-            Response.responseSucceed(resp,"登陆成功");
+            session.setAttribute("login", "succeed");
+            return Response.responseSucceed("登陆成功");
         }
     }
 

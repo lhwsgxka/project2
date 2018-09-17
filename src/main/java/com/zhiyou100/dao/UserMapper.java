@@ -15,7 +15,7 @@ public interface UserMapper {
     //查询
     User selectByPrimaryKey(Integer usId);
 
-    List<User> selectBySelective(@Param("name") String name, @Param("password")String password);
+    User selectBySelective(@Param("name") String name, @Param("password")String password);
 
     int updateByPrimaryKeySelective(User record);
 

@@ -28,7 +28,7 @@ public class UserService {
         return userMapper.selectByPrimaryKey(usId);
     }
 
-    public List<User> selectBySelective(String name, String password) {
+    public User selectBySelective(String name, String password) {
         return userMapper.selectBySelective(name, password);
     }
 

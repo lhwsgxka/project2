@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +26,9 @@ public class Identity {
     @Autowired
     UserService userService;
 
+    @ResponseBody
     @RequestMapping("/verify.do")
-    public void verify(int usId, String usIdcard, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public String verify(int usId, String usIdcard) throws IOException {
         User user = userService.selectByPrimaryKey(usId);
         //身份证添加
         user.setUsIdcard(usIdcard);
@@ -37,7 +39,8 @@ public class Identity {
         //提交更新
         int i = userService.updateByPrimaryKeySelective(user);
         if (i == 1) {
-            Response.responseSucceed(resp, "成功");
+            return Response.responseSucceed("成功");
         }
+        return Response.responseError("失败");
     }
 }
