@@ -60,7 +60,6 @@ public class Project {
     public String comment(String page, String pageSize) {
         if (StringUtils.isBlank(page) || StringUtils.isBlank(pageSize)) {
             return Response.responseError("page不能为空");
-
         }
         //设置页码
         PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(pageSize));

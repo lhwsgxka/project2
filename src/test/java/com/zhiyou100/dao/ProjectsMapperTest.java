@@ -1,6 +1,6 @@
 package com.zhiyou100.dao;
 
-import com.github.pagehelper.Page;
+
 import com.github.pagehelper.PageHelper;
 import com.zhiyou100.pojo.Projects;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class ProjectsMapperTest {
 ProjectsMapper projectsMapper;
     @Test
     public void selectByPage() {
-        PageHelper.startPage(1,0);
+        PageHelper.startPage(0,1);
         List<Projects> projects = projectsMapper.selectByPage();
         System.out.println(projects);
         /*Page<Object> page = PageHelper.offsetPage(0, 1);

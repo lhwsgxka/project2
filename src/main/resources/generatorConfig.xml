@@ -34,7 +34,13 @@
                              targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="projects" domainObjectName="Projects"
+        <table tableName="real_check" domainObjectName="RealCheck"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+     <!--   <table tableName="projects" domainObjectName="Projects"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -94,6 +100,6 @@
         </table>
 
 
-
+-->
     </context>
 </generatorConfiguration>
