@@ -8,6 +8,7 @@ import com.zhiyou100.pojo.User;
 import com.zhiyou100.responsemessage.Response;
 import com.zhiyou100.service.RealCheckService;
 import com.zhiyou100.service.UserService;
+import com.zhiyou100.util.FaceCompareUtil;
 import com.zhiyou100.util.MailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,10 +57,17 @@ public class AdminController {
         return Response.responseSucceed(json);
     }
 
+    /***
+     * z这个是对实名认证的数据处理
+     * @param state
+     * @param id
+     * @throws CrowdFundingException
+     */
     @RequestMapping("/inform.do")
     @Permission(role = "admin")
     public void inform(String state, String id) throws CrowdFundingException {
         Integer uid = Integer.valueOf(id);
         realCheckService.inform(state, uid);
     }
+
 }
