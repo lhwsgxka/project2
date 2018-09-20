@@ -34,7 +34,7 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 
         <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
-    <!--分页查询-->
+        <!--分页查询-->
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageHelper">
@@ -65,6 +65,6 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="tm"></tx:annotation-driven>
-
-
+    <!--引用其他配置文件-->
+    <import resource="spring-task.xml"></import>
 </beans>

@@ -6,6 +6,7 @@ import com.zhiyou100.util.SMSUtil;
 import com.zhiyou100.responsemessage.Response;
 import com.zhiyou100.service.UserService;
 import com.zhiyou100.util.ReqUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,9 @@ import java.util.Random;
  */
 @Controller
 @RequestMapping("/register")
-public class Register {
-    private final static Logger log = LoggerFactory.getLogger(Register.class);
+@Slf4j
+public class RegisterController {
+    //private final static Logger log = LoggerFactory.getLogger(Register.class);
 
     private String codes;
     @Autowired

@@ -5,6 +5,7 @@ import com.aliyun.oss.model.GetObjectRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.Date;
 
 public class OosUtil {
     // Endpoint以杭州为例，其它Region请按实际情况填写。
@@ -24,7 +25,7 @@ public class OosUtil {
      * @param inputStream
      */
     //lhwapartment
-    public static void uploading(String bucketName, String objectName, InputStream inputStream) {
+    public static String uploading(String bucketName, String objectName, InputStream inputStream) {
 
 // 创建OSSClient实例。
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
@@ -32,6 +33,9 @@ public class OosUtil {
         ossClient.putObject(bucketName, objectName, inputStream);
 // 关闭OSSClient。
         ossClient.shutdown();
+        Date expiration = new Date(new Date().getTime() + 3600l * 1000 * 24 * 365 * 10);
+        String url = ossClient.generatePresignedUrl(bucketName, objectName, expiration).toString();
+        return url;
     }
 
     /***

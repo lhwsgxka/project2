@@ -39,20 +39,26 @@
     </bean>
 
     <mvc:interceptors>
-        <mvc:interceptor>
-            <!--配置拦截器的拦截路径-->
+      <!--  <mvc:interceptor>
+            &lt;!&ndash;配置拦截器的拦截路径&ndash;&gt;
             <mvc:mapping path="/**/*.do"></mvc:mapping>
-            <!--配置拦截器非拦截路径-->
+            &lt;!&ndash;配置拦截器非拦截路径&ndash;&gt;
             <mvc:exclude-mapping path="/login/login.do"></mvc:exclude-mapping>
             <mvc:exclude-mapping path="/register/*.do"></mvc:exclude-mapping>
-            <!--配置拦截器的实现类-->
+&lt;!&ndash;            <mvc:exclude-mapping path="/admin/admin.do"></mvc:exclude-mapping>&ndash;&gt;
+            &lt;!&ndash;配置拦截器的实现类&ndash;&gt;
             <bean class="com.zhiyou100.filter.Login"></bean>
         </mvc:interceptor>
-
+-->
         <mvc:interceptor>
             <mvc:mapping path="/**/*.do"></mvc:mapping>
             <bean class="com.zhiyou100.filter.Filter"></bean>
         </mvc:interceptor>
+        
+     <!--   <mvc:interceptor>
+            <mvc:mapping path="/admin/*.do"/>
+          <bean class ="com.zhiyou100.filter.PermissionInterceptor"></bean>
+        </mvc:interceptor>-->
 
     </mvc:interceptors>
 </beans>

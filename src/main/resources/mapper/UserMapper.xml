@@ -23,6 +23,25 @@
     us_role, us_sex, us_code, us_create_time, us_update_time
   </sql>
 
+<select id="selectByPhone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    where us_phone=#{phone}
+
+</select>
+    <!--通过id查询得到权限里的内容-->
+    <select id="findById" resultType="java.lang.String">
+        select
+        r.jurisdiction
+        from
+        `user` l,user_jurisdiction m,jurisdiction r
+        where
+        l.us_id=m.uid and m.jid=r.id
+        and  l.us_id = #{id}
+    </select>
+
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>

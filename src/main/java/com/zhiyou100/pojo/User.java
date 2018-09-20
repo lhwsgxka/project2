@@ -3,6 +3,8 @@ package com.zhiyou100.pojo;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 public class User {
     private Integer usId;
@@ -31,6 +33,7 @@ public class User {
 
     private Date usUpdateTime;
 
+    private List<String> role;
     public Integer getUsId() {
         return usId;
     }

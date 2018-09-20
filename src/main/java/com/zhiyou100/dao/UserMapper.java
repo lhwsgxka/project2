@@ -17,9 +17,13 @@ public interface UserMapper {
 
     User selectBySelective(@Param("name") String name, @Param("password")String password);
 
+    //通过用户的id查询得到权限的内同
+    List<String> findById(Integer id);
+
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
 
-
+//通过电话号码查询
+    User selectByPhone(String phone);
 }

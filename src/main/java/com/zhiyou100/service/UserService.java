@@ -31,6 +31,14 @@ public class UserService {
     public User selectBySelective(String name, String password) {
         return userMapper.selectBySelective(name, password);
     }
+    //通过id查询权限
+    public  List<String> findById(Integer id){
+        return userMapper.findById(id);
+    }
+    //通过电话号码查询
+    public User selectByPhone(String phone){
+        return userMapper.selectByPhone(phone);
+    }
 
     public int updateByPrimaryKeySelective(User record) {
         return userMapper.updateByPrimaryKeySelective(record);

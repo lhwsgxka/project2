@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping("/project")
 @Slf4j
 public class Project {
-    //  private final static Logger log = LoggerFactory.getLogger(Register.class);
+    //  private final static Logger     log = LoggerFactory.getLogger(Register.class);
     @Autowired
     ProjectsService projectsService;
 

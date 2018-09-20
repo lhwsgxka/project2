@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/login")
 @Slf4j
-public class Login {
+public class LoginController {
     //private final static Logger log = LoggerFactory.getLogger(Register.class);
     @Autowired
     UserService userService;
@@ -50,7 +50,7 @@ public class Login {
 
         } else {
             HttpSession session = req.getSession();
-            session.setAttribute("login", "succeed");
+            session.setAttribute("login", users);
             return Response.responseSucceed("登陆成功");
         }
     }

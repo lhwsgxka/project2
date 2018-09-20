@@ -19,7 +19,7 @@ import java.util.Date;
 @Controller
 @Slf4j
 @RequestMapping("/comment")
-public class Comment {
+public class CommentController {
     @Autowired
     CommentsService commentsService;
 
@@ -82,7 +82,6 @@ public class Comment {
                 return Response.responseError("添加失败");
             }
         } catch (Exception e) {
-
             log.error("error", e);
             return Response.responseError("服务器错误");
         }

@@ -11,7 +11,7 @@ public class Login implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        if (session.getAttribute("login").equals("succeed")) {
+        if (session.getAttribute("login")!=null) {
             return true;
         }else {
             response.sendRedirect("/admin_login.html");

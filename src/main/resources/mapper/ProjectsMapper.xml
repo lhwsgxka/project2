@@ -53,8 +53,8 @@
     <select id="selectByPage" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from projects
-       /* `limit`  #{page}, 5*/
+        from
+        projects
     </select>
 
     <sql id="Project_Column_List">
