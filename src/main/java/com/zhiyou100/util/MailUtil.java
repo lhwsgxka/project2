@@ -59,7 +59,7 @@ public class MailUtil {
             ts.sendMessage(message, message.getAllRecipients());
             ts.close();
         }catch (Exception e){
-            throw new CrowdFundingException(2,"发送失败");
+            throw new CrowdFundingException("发送失败");
         }
     }
 }

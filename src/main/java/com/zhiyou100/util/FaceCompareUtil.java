@@ -138,7 +138,7 @@ public class FaceCompareUtil {
                 result += line;
             }
         } catch (Exception e) {
-            throw new CrowdFundingException(400,"处理失败");
+            throw new CrowdFundingException("处理失败");
         } finally {
             try {
                 if (out != null) {

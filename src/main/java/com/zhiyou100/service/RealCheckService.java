@@ -56,7 +56,7 @@ public class RealCheckService {
         if (state.equals("succeed")) {
             RealCheck realCheck = selectByPrimaryKey(uid);
             //将实名认证的状态码改为1
-            realCheck.setStatus(1);
+            realCheck.setStatus(2);
             String phone = realCheck.getPhone();//获取电话号码 通过电话号码得到用户
             updateByPrimaryKey(realCheck);//提交上去
 
@@ -67,7 +67,7 @@ public class RealCheckService {
         }
         if (state.equals("failed")) {
             RealCheck realCheck = selectByPrimaryKey(uid);
-            realCheck.setStatus(2);
+            realCheck.setStatus(3);
             String phone = realCheck.getPhone();
             updateByPrimaryKey(realCheck);
             User user = userService.selectByPhone(phone);

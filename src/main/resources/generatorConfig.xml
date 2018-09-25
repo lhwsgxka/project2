@@ -35,12 +35,11 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="page" domainObjectName="Page"
+        <table tableName="funding" domainObjectName="Funding"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-
         <!--     <table tableName="jurisdiction" domainObjectName="Jurisdiction"
                     enableCountByExample="false" enableUpdateByExample="false"
                     enableDeleteByExample="false" enableSelectByExample="false"

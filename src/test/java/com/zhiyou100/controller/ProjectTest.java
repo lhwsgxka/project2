@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring.xml","classpath:spring-mvc.xml"})
+@ContextConfiguration(locations = {"classpath:spring.xml", "classpath:spring-mvc.xml"})
 @WebAppConfiguration//表示测试的是controller
 public class ProjectTest {
     @Autowired
@@ -34,14 +34,15 @@ public class ProjectTest {
 
     @Before
     public void setUp() throws Exception {
-        mockMvc=MockMvcBuilders.webAppContextSetup(wac).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
     public void projectQueryPage() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(post("/project/page.do").param("page", "1")
-                .param("pageSize","5"))
-                .andDo(print())//打印该次请求的结果
+        MvcResult mvcResult = mockMvc.perform(post("/project/comment.do")
+                .param("page", "1")
+                .param("id","2")
+                ).andDo(print())//打印该次请求的结果
                 //.andExpect(status().isOk())//期待方法调用成功
                 .andReturn();
 /*

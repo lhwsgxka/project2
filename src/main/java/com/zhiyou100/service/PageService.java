@@ -38,10 +38,12 @@ public class PageService {
                 realChecks) {
             String idCardHand = realCheck.getIdCardHand();
             String idCardNegative = realCheck.getIdCardNegative();
+            //将照片地址 请求阿里自动识别返回结果
             Object sendPost = FaceCompareUtil.sendPost(idCardHand, idCardNegative);//自动识别
             String string = sendPost.toString();
             Double valueOf = Double.valueOf(string);
             System.out.println(valueOf+"---------------");
+            //对返回的结果进行判断，改变数据库状态
             if (valueOf > 60) {
                 realCheckService.inform("succeed", realCheck.getId());
             } else {

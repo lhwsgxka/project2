@@ -8,7 +8,8 @@
 
     <task:scheduler id="taskScheduler" pool-size="100"/>
     <task:scheduled-tasks scheduler="taskScheduler">
-        <task:scheduled ref="taskDemo" method="hello" cron="* * * * * ?"/>
-        <task:scheduled ref="taskDemo" method="selfMotionInform" cron="* * * * * ?"/>
+       <!-- <task:scheduled ref="taskDemo" method="hello" cron="* * * * * ?"/>-->
+        <task:scheduled ref="projectDispose" method="projectDispose" cron="* * * * * ?"/>
+       <!-- <task:scheduled ref="taskDemo" method="selfMotionInform" cron="* * * * * ?"/>-->
     </task:scheduled-tasks>
 </beans>

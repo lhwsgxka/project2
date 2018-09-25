@@ -47,7 +47,6 @@ public class LoginController {
         System.out.println(users);
         if (users == null) {
             return Response.responseError("账号密码不匹配");
-
         } else {
             HttpSession session = req.getSession();
             session.setAttribute("login", users);

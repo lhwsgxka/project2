@@ -113,7 +113,12 @@ public class IdentityController {
                 realCheck.setIdCardPositive(idCardPositiveUrl);
                 realCheck.setIdCardNegative(idCardNegativeUrl);
                 realCheck.setIdCardHand(idCardHandUrl);
-                realCheck.setStatus(0);//提交0
+                /*0默认
+                1 提交
+                2成功
+                3失败
+                * */
+                realCheck.setStatus(0);//提交1
                 int i = realCheckService.insertSelective(realCheck);
                 if (i == 1) {
                     return Response.responseSucceed("succeed");
@@ -127,8 +132,6 @@ public class IdentityController {
         return Response.responseError("上传失败");
 
     }
-
-
 
 
 }

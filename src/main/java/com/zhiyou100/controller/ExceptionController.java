@@ -27,9 +27,7 @@ public class ExceptionController {
         log.error("error:",ex);
         if (ex instanceof CrowdFundingException){
             CrowdFundingException crowdFundingException = (CrowdFundingException) ex;
-
             return Response.responseError(crowdFundingException.getError());
-
         }else{
             return Response.responseError("请求失败");
         }

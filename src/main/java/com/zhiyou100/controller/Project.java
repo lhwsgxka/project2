@@ -2,8 +2,10 @@ package com.zhiyou100.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.google.gson.Gson;
+import com.zhiyou100.exception.CrowdFundingException;
 import com.zhiyou100.pojo.Comments;
 import com.zhiyou100.pojo.Projects;
+import com.zhiyou100.pojo.User;
 import com.zhiyou100.responsemessage.Response;
 import com.zhiyou100.service.ProjectsService;
 import com.zhiyou100.util.ReqUtil;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,58 +43,65 @@ public class Project {
      */
     @ResponseBody//返json类型
     @RequestMapping("/page.do")
-    public String projectQueryPage(String page, String pageSize) throws IOException {
-        if (StringUtils.isBlank(page) || StringUtils.isBlank(pageSize)) {
+    public String projectQueryPage(String page)  {
+        if (StringUtils.isBlank(page) ) {
             return Response.responseError("page不能为空");
         }
         //设置页码
-        PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(pageSize));
-        List<Projects> projects = projectsService.selectByPage();
+        List<Projects> projects = projectsService.selectByPage(Integer.valueOf(page));
         String json = new Gson().toJson(projects);
         return Response.responseSucceed(json);
     }
 
     /***
-     * 通过页码查询评论
+     * 项目的发布
+     * 项目的添加需要先添加到数据库 状态码变化
+     */
+    @RequestMapping("/release.do")
+    @ResponseBody
+    public String release(HttpServletRequest req) throws CrowdFundingException {
+        try {
+            HttpSession session = req.getSession();
+            User user = (User) session.getAttribute("login");
+            Projects projects = ReqUtil.reqUtil(req, Projects.class);
+            /*
+            * 项目状态(0.待审核1.待上架2.众筹中3.众筹成功4.众筹失败5.审核未通过)*/
+            projects.setPsType(0);
+            int i = projectsService.updateByPrimaryKeySelective(projects);
+            if (i == 1) {
+                return Response.responseSucceed( "succeed");
+            }else {
+                return Response.responseError("更新失败");
+            }
+        } catch (Exception e) {
+            throw  new CrowdFundingException("服务器错误");
+        }
+    }
+
+
+    /***
+     * 通过页码查询指定项目的评论
      * @param page
      */
     @ResponseBody
     @RequestMapping("/comment.do")
-    public String comment(String page, String pageSize) {
-        if (StringUtils.isBlank(page) || StringUtils.isBlank(pageSize)) {
+    public String comment(String page,String id) {//这个是项目的id
+        if (StringUtils.isBlank(page) ) {
             return Response.responseError("page不能为空");
         }
+        //在查询之前我先判断这个项目审核过没有
+        Projects projects = projectsService.selectByPrimaryKey(Integer.valueOf(id));
+        Integer type = projects.getPsType();
+        if (type==0||type==5){
+            return Response.responseError("该项目没有通过审核");
+        }
         //设置页码
-        PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(pageSize));
-        List<Comments> comments = projectsService.selectCommentByPage();
+        List<Comments> comments = projectsService.selectCommentByPage(Integer.valueOf(id),Integer.valueOf(page));
         String json = new Gson().toJson(comments);
         return Response.responseSucceed(json);
     }
 
-    /***
-     * 添加
-     * @param req
-     * @param
-     * @throws IOException
-     */
-    @ResponseBody
-    @RequestMapping("/add.do")
-    public String add(HttpServletRequest req) {
-        try {
-            //将请求转变成对象
-            Projects projects = ReqUtil.reqUtil(req, Projects.class);
-            //添加
-            int i = projectsService.insertSelective(projects);
-            if (i == 1) {
-                return Response.responseSucceed("succeed");
-            } else {
-                return Response.responseError("添加失败");
-            }
-        } catch (Exception e) {
-            log.error("error", e);
-            return Response.responseError("服务器错误");
-        }
-    }
+
 
     /***
      * 删除

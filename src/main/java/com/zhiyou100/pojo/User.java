@@ -2,6 +2,7 @@ package com.zhiyou100.pojo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class User {
 
     private String usPassword;
 
-    private Long usMoney;
+    private BigDecimal usMoney;
 
     private String usIdcard;
 
@@ -66,11 +67,11 @@ public class User {
         this.usPassword = usPassword == null ? null : usPassword.trim();
     }
 
-    public Long getUsMoney() {
+    public BigDecimal getUsMoney() {
         return usMoney;
     }
 
-    public void setUsMoney(Long usMoney) {
+    public void setUsMoney(BigDecimal usMoney) {
         this.usMoney = usMoney;
     }
 

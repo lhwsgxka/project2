@@ -28,11 +28,12 @@
         <result column="ps_auditor" property="psAuditor" jdbcType="INTEGER"/>
     </resultMap>
 
-    <resultMap id="CommentResultMap" type="com.zhiyou100.pojo.Projects">
+    <resultMap id="ProjectsCommentResultMap" type="com.zhiyou100.pojo.Comments">
         <id column="cm_id" property="cmId" jdbcType="INTEGER"/>
         <result column="cm_us_id" property="cmUsId" jdbcType="INTEGER"/>
         <result column="cm_ps_id" property="cmPsId" jdbcType="INTEGER"/>
         <result column="cm_time" property="cmTime" jdbcType="TIMESTAMP"/>
+        <result column="cm_content" property="cmContent"></result>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -48,33 +49,44 @@
         from projects
         where ps_id = #{psId,jdbcType=INTEGER}
     </select>
-
-    <!--分页查询项目-->
-    <select id="selectByPage" resultMap="BaseResultMap">
+    <!--分页查询出状态为0的项目 0表示审核-->
+    <select id="selectByAuditPage" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from
         projects
+        where
+        ps_type=0
+    </select>
+    <!--分页查询项目-->
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from projects
     </select>
 
     <sql id="Project_Column_List">
-    cm_id, cm_us_id, cm_ps_id, cm_time
+    cm_id, cm_us_id, cm_ps_id, cm_time ,cm_content
   </sql>
+    <!--分页查询时间到的-->
+<select id="selectByFailed" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from projects
+    where
+    ps_endtime=#{date}
+    and ps_type=1 or  ps_type = 2
+</select>
 
-    <sql id="ProjectBlob_Column_List">
-    cm_content
-  </sql>
-
-    <!--分页查询评论-->
-    <select id="selectCommentByPage" resultMap="CommentResultMap">
+    <!--指定项目分页查询评论-->
+    <select id="selectCommentByPage" resultMap="ProjectsCommentResultMap">
         select
         <include refid="Project_Column_List"/>
-        ,
-        <include refid="ProjectBlob_Column_List"/>
-        from
-        comments ,projects where
-        where ps_type <!--&gt;0 and ps_type<5-->
-      /*  `limit`  #{page}, 5*/
+        FROM
+        projects r, comments c
+        WHERE
+        r.ps_id=c.`cm_ps_id` AND
+        r.ps_id =#{id}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

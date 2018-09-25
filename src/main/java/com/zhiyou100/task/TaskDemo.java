@@ -26,7 +26,11 @@ public class TaskDemo {
         System.out.println("hello");
     }
 
-
+    /***
+     * 自动处理实名认证
+     * @throws IOException
+     * @throws CrowdFundingException
+     */
     public void selfMotionInform() throws IOException, CrowdFundingException {
        pageService.selfMotionInform();
     }

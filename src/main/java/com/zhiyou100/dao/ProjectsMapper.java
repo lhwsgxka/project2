@@ -14,13 +14,18 @@ public interface ProjectsMapper {
     int insertSelective(Projects record);
 
     Projects selectByPrimaryKey(Integer psId);
+
     //分页查询项目
-    //List<Projects> selectByPage(@Param("page") Integer page,@Param("pageSize") Integer pageSize);
     List<Projects> selectByPage();
+    //分页查询审核中的项目
+    List<Projects>  selectByAuditPage();
    //分页查询评论
-    List<Comments> selectCommentByPage();
+    List<Comments> selectCommentByPage(int id);
+    //分页查询众筹时间到的
+    List<Projects> selectByFailed(String date);
 
     int updateByPrimaryKeySelective(Projects record);
 
     int updateByPrimaryKey(Projects record);
+
 }
